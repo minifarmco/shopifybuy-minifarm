@@ -6,8 +6,8 @@ It is powered by the [Shopify BuyJS SDK](https://github.com/Shopify/js-buy-sdk).
 ## How to Deploy
 1. Make sure `"noEmit": false` in `tsconfig.json`
 2. Run `$ yarn webpack`
-3. Upload the output file `dist/minifarm-shopifybuy.js` to Firebase Storage and set to public
-4. Import the script into your HTML. Below is a sample.
+3. Upload the output files `dist/*` to Firebase Storage and set to public
+4. Import the script into webflow. Below is a generalized HTML example. See demo.html for a real example.
 
 ```html
 <!DOCTYPE html>
@@ -15,13 +15,45 @@ It is powered by the [Shopify BuyJS SDK](https://github.com/Shopify/js-buy-sdk).
   <head>
     <title>Parcel Sandbox</title>
     <meta charset="UTF-8" />
+    <!-- header-placement.html -->
   </head>
 
   <body>
     <h1>MiniFarm Shopify Buy JS</h1>
-    <div id="root"></div>
 
-    <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-shopifybuy.js?alt=media&token=c6896d9d-cefb-4d9f-8a21-d5e1b12f7a7a"></script>
+    <section id="product-list">
+      <!-- buy-button-placement.html -->
+    </section>
+
+    <!-- body-placement.html -->
   </body>
 </html>
 ```
+
+## To Do
+
+### Higher Priority ToDos
+
+- Pretty up the styling
+
+- Make the cart sidebar collapse on clicking gray outer area
+
+- A convinent helper function to get all the product IDs
+
+- Dynamically save UTM params
+
+- Integrate mixpanel
+
+- Push events to google analytics window.dataLayer
+
+- Decide whether to keep or remove firebase firestore
+
+- Make public the firebase storage of our scripts, so that we dont need to overwrite the script url every time
+
+### Lower Priority Todos
+
+- Refactor the header script so that you can pass in shopify store url & token from external script instead of it being encapsulated in the minified script. same for mixpanel tokens
+
+- A way to render collections
+
+- Open Source it

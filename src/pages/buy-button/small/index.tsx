@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { emptyProduct } from "../../../api/constants";
+import { getCartContents } from "../../../api/shopify-cart";
 
-function App({ productId }: { productId: string }) {
+const App = ({ productId }: { productId: string }) => {
   const [product, setProduct] = useState(emptyProduct);
 
   useEffect(() => {
@@ -19,24 +20,29 @@ function App({ productId }: { productId: string }) {
     initProduct();
   }, [productId]);
 
-  const addToCart = (variant: any) => () => {
+  const addToCart = (variant: any) => async () => {
+    window.toggleCartVisibility(true);
     const lineItemsToAdd = [
       {
         variantId: variant.id,
         quantity: 1,
       },
     ];
-    window.shopifyClient.checkout.addLineItems(
+    await window.shopifyClient.checkout.addLineItems(
       window.checkoutId,
       lineItemsToAdd
     );
+    const cartItems = await getCartContents();
+    console.log("cartItems:");
+    console.log(cartItems);
+    window.updateCartItems(cartItems);
   };
 
   return (
     <div className="App">
       {product.variants.map((v) => {
         return (
-          <div>
+          <div key={v.id}>
             <img
               alt={v.title}
               src={v.image.src}
@@ -54,6 +60,6 @@ function App({ productId }: { productId: string }) {
       })}
     </div>
   );
-}
+};
 
 export default App;

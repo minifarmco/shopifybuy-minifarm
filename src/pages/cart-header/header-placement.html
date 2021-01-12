@@ -1,0 +1,18 @@
+
+<!-- shopify cart header -->
+<script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-header.js?alt=media&token=cbff89c1-270a-458c-b51b-567bbaec907b"></script>
+<!-- shopify buy button SDK customized -->
+<script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-shopifybuy-button.js?alt=media&token=784d130a-8192-4cb9-aea4-a1916375b4e1"></script>
+<script>
+    const clearHeaderChecker = (ck) => {
+        console.log("Found window.MiniFarmCartHeader! clearInterval()");
+        clearInterval(ck);
+        window.MiniFarmCartHeader.default()
+    };
+    const headerChecker = setInterval(() => {
+        console.log("Checking for window.MiniFarmCartHeader...");
+        if (window.MiniFarmCartHeader) {
+            clearHeaderChecker(headerChecker);
+        }
+    }, 100);
+</script>

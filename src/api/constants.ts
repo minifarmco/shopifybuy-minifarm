@@ -29,6 +29,8 @@ declare global {
     addToFirestore: any;
     getFromFirestore: any;
     firestore: any;
+    updateCartItems: Function;
+    toggleCartVisibility: Function;
   }
 }
 
@@ -37,5 +39,7 @@ window.checkoutId = window.checkoutId || "";
 window.addToFirestore = window.addToFirestore || {};
 window.getFromFirestore = window.getFromFirestore || {};
 window.firestore = window.firestore || {};
+window.updateCartItems = window.updateCartItems || [];
+window.toggleCartVisibility = window.toggleCartVisibility || [];
 
 export const typesWorkaround = "";

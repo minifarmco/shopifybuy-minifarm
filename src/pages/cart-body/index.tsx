@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { initFirebase } from "../../api/firebase";
 
 const ShopifyRenderCart = () => {
-  initFirebase();
   ReactDOM.render(
     <React.StrictMode>
       <App />

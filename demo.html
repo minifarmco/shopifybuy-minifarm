@@ -3,12 +3,53 @@
   <head>
     <title>Parcel Sandbox</title>
     <meta charset="UTF-8" />
+    <!-- header-placement.html -->
+    <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-header.js?alt=media&token=cbff89c1-270a-458c-b51b-567bbaec907b"></script>
+    <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-shopifybuy-button.js?alt=media&token=784d130a-8192-4cb9-aea4-a1916375b4e1"></script>
+    <script>
+        const clearHeaderChecker = (ck) => {
+            console.log("Found window.MiniFarmCartHeader! clearInterval()");
+            clearInterval(ck);
+            window.MiniFarmCartHeader.default()
+        };
+        const headerChecker = setInterval(() => {
+            console.log("Checking for window.MiniFarmCartHeader...");
+            if (window.MiniFarmCartHeader) {
+                clearHeaderChecker(headerChecker);
+            }
+        }, 100);
+    </script>
+    <!-- header-placement.html -->
   </head>
-
   <body>
     <h1>MiniFarm Shopify Buy JS</h1>
-    <div id="root"></div>
+    <section>
+      <!-- buy-button-placement.html -->
+      <div id="shopify-product-id-Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIwMTU3Mjc2NjA=-container" width="200px" height="200px"></div>
+      <script>
+          setTimeout(() => {
+              window.MiniFarmShopifyBuyButton.default({ divId: "shopify-product-id-Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIwMTU3Mjc2NjA=-container", productId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIwMTU3Mjc2NjA=", size: "small" })
+          }, 2000)
+      </script>
+      <!-- buy-button-placement.html -->
+    </section>
 
-    <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-shopifybuy.js?alt=media&token=c6896d9d-cefb-4d9f-8a21-d5e1b12f7a7a"></script>
+    <!-- body-placement.html -->
+    <div id="shopping-cart"></div>
+    <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-body.js?alt=media&token=ba999b7f-1c02-4d46-b412-34fbc2040578"></script>
+    <script>
+        const clearBodyChecker = (ck) => {
+            console.log("Found window.shopifyClient! clearInterval()");
+            clearInterval(ck);
+            window.MiniFarmCartBody.default()
+        };
+        const bodyChecker = setInterval(() => {
+            console.log("Checking for window.shopifyClient...");
+            if (window.shopifyClient) {
+                clearBodyChecker(bodyChecker);
+            }
+        }, 100);
+    </script>
+    <!-- body-placement.html -->
   </body>
 </html>

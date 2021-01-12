@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { SHOPIFY_CHECKOUT_ID_COOKIE } from "../../api/constants";
-import { getCartContents, redirectToCheckout } from "../../api/shopify-cart";
+import { redirectToCheckout, getCartContents } from "../../api/shopify-cart";
 
 const ShoppingCardSidebar = () => {
   const [visible, setVisible] = useState(false);
-  const [lineItems, setLineItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]) as Array<any>;
 
-  const listCart = async () => {
-    const x = await getCartContents();
-    console.log("cart contents:");
-    console.log(x);
-    console.log(x[0]);
-    console.log(Object.keys(x[0]));
-    setLineItems(x);
+  window.updateCartItems = (cartItems: Array<any>) => {
+    setCartItems(cartItems);
+  };
+  window.toggleCartVisibility = (bool: boolean) => {
+    setVisible(bool);
+  };
+
+  const initCartItems = async () => {
+    const cartItems = await getCartContents();
+    window.updateCartItems(cartItems);
   };
 
   useEffect(() => {
-    listCart();
+    initCartItems();
   }, []);
 
   const toggleDrawer = () => {
@@ -25,8 +28,8 @@ const ShoppingCardSidebar = () => {
     setVisible(!visible);
   };
 
-  const calculateTotalBill = () => {
-    return lineItems.reduce((acc, curr) => {
+  const calculateTotalBill = (cart: Array<any>) => {
+    return cart.reduce((acc, curr) => {
       return acc + curr["quantity"] * curr["variant"]["price"];
     }, 0);
   };
@@ -39,7 +42,7 @@ const ShoppingCardSidebar = () => {
     id: string;
     currentQuantity: number;
     amount: number;
-  }) => () => {
+  }) => async () => {
     const lineItemsToUpdate = [];
     if (currentQuantity + amount < 0) {
       lineItemsToUpdate.push({ id: id, quantity: 0 });
@@ -47,12 +50,14 @@ const ShoppingCardSidebar = () => {
       lineItemsToUpdate.push({ id: id, quantity: currentQuantity + amount });
     }
     const checkoutId = Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE);
-    window.shopifyClient.checkout
+    const lineItems = await window.shopifyClient.checkout
       .updateLineItems(checkoutId, lineItemsToUpdate)
       .then((checkout: any) => {
         // Do something with the updated checkout
-        console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
+        console.log(checkout.lineItems);
+        return checkout.lineItems;
       });
+    window.updateCartItems(lineItems);
   };
 
   const onCheckoutClick = () => {
@@ -110,7 +115,7 @@ const ShoppingCardSidebar = () => {
         >
           <h1 style={{ color: "white" }}>Mini-Farm</h1>
           <div>
-            {lineItems.map((p, i) => (
+            {cartItems.map((p: any, i: number) => (
               <div
                 key={p["id"]}
                 style={{ display: "flex", flexDirection: "row" }}
@@ -119,10 +124,10 @@ const ShoppingCardSidebar = () => {
                   onClick={updateVariantCount({
                     id: p["id"],
                     currentQuantity: p["quantity"],
-                    amount: 1,
+                    amount: -1,
                   })}
                 >
-                  +
+                  -
                 </button>
                 <input
                   readOnly
@@ -133,19 +138,19 @@ const ShoppingCardSidebar = () => {
                   onClick={updateVariantCount({
                     id: p["id"],
                     currentQuantity: p["quantity"],
-                    amount: -1,
+                    amount: 1,
                   })}
                 >
-                  -
+                  +
                 </button>
-                <div>{`${p["title"]} ($${
+                <div>{`${p["title"]} - ${p["variant"]["title"]} ($${
                   p["quantity"] * p["variant"]["price"]
                 })`}</div>
               </div>
             ))}
           </div>
           <div>
-            <h2>{`Total $${calculateTotalBill()}`}</h2>
+            <h2>{`Total $${calculateTotalBill(cartItems)}`}</h2>
             <button
               onClick={onCheckoutClick}
               style={{
