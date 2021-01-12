@@ -19,3 +19,9 @@ export const extractCheckoutIdFromWebUrl = (webUrl: string) => {
   }
   return y;
 };
+
+export const clearCookiesListener = () => {
+  window.onbeforeunload = function (e: any) {
+    Cookies.remove("utm_source");
+  };
+};
