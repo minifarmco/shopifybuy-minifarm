@@ -31,13 +31,31 @@ const baseConfig = {
 };
 
 module.exports = [
-  {
-    ...baseConfig,
-    entry: './src/index.tsx',
-    output: {
-      ...baseConfig.output,
-      filename: 'minifarm-shopifybuy.js',
-      library: 'MiniFarmShopifyBuyJS',
+    {
+        ...baseConfig,
+        entry: './src/pages/cart-header/index.tsx',
+        output: {
+            ...baseConfig.output,
+            filename: 'minifarm-cart-header.js',
+            library: 'MiniFarmCartHeader',
+        },
     },
-  }
+    {
+        ...baseConfig,
+        entry: './src/pages/buy-button/index.tsx',
+        output: {
+            ...baseConfig.output,
+            filename: 'minifarm-shopifybuy-button.js',
+            library: 'MiniFarmShopifyBuyButton',
+        },
+    },
+    {
+        ...baseConfig,
+        entry: './src/pages/cart-body/index.tsx',
+        output: {
+            ...baseConfig.output,
+            filename: 'minifarm-cart-body.js',
+            library: 'MiniFarmCartBody',
+        },
+    }
 ];
