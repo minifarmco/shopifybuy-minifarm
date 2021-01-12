@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShoppingCardSidebar from "./components/shopping-cart";
 import SmallBuyButton from "./components/product-cards/small";
-import { initiateShopifyCart } from "./api/shopify-cart";
+import { initiateShopifyCart, fetchAllProducts } from "./api/shopify-cart";
 import { initFirebase } from "./api/firebase";
 
 function App() {
@@ -12,6 +12,9 @@ function App() {
     setTimeout(() => {
       setLoaded(true);
     }, 1000);
+    setTimeout(() => {
+      fetchAllProducts();
+    }, 2000);
   }, []);
 
   return loaded ? (
@@ -30,6 +33,9 @@ function App() {
         Hello World
         <SmallBuyButton
           productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIwMTU3Mjc2NjA="}
+        />
+        <SmallBuyButton
+          productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MTI2NzE5MTQwMjg="}
         />
       </div>
     </div>

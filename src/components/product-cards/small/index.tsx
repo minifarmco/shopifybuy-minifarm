@@ -70,9 +70,11 @@ const App = ({ productId }: { productId: string }) => {
 
   const menu = (
     <Menu onClick={handleMenuClick} style={{ width: "250px" }}>
-      {product.variants.map((v, i) => (
-        <Menu.Item key={i}>{v.title}</Menu.Item>
-      ))}
+      {product.variants.length === 1 ? (
+        <Menu.Item key={0}>{product.title}</Menu.Item>
+      ) : (
+        product.variants.map((v, i) => <Menu.Item key={i}>{v.title}</Menu.Item>)
+      )}
     </Menu>
   );
 
@@ -86,7 +88,9 @@ const App = ({ productId }: { productId: string }) => {
         >
           {`${
             chosenVariant
-              ? `${chosenVariant["title"]} $${chosenVariant["price"]}`
+              ? product.variants.length === 1
+                ? `${product["title"]} $${chosenVariant["price"]}`
+                : `${chosenVariant["title"]} $${chosenVariant["price"]}`
               : product["title"]
           }`}{" "}
           {chosenVariant ? <DownOutlined /> : null}

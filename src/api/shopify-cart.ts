@@ -109,3 +109,11 @@ export const getCartContents = async () => {
       return checkout.lineItems;
     });
 };
+
+export const fetchAllProducts = async () => {
+  return window.shopifyClient.product.fetchAll().then((products: any) => {
+    console.log("products:");
+    console.log(products);
+    return products;
+  });
+};

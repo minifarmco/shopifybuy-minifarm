@@ -63,7 +63,8 @@ const ShoppingCardSidebar = () => {
   const onCheckoutClick = () => {
     redirectToCheckout(window.checkoutId);
   };
-
+  console.log("cartItems:");
+  console.log(cartItems);
   return (
     <div
       onClick={toggleDrawer}
@@ -143,9 +144,15 @@ const ShoppingCardSidebar = () => {
                 >
                   +
                 </button>
-                <div>{`${p["title"]} - ${p["variant"]["title"]} ($${
-                  p["quantity"] * p["variant"]["price"]
-                })`}</div>
+                {p["variant"]["title"] === "Default Title" ? (
+                  <div>{`${p["title"]} ($${
+                    p["quantity"] * p["variant"]["price"]
+                  })`}</div>
+                ) : (
+                  <div>{`${p["title"]} - ${p["variant"]["title"]} ($${
+                    p["quantity"] * p["variant"]["price"]
+                  })`}</div>
+                )}
               </div>
             ))}
           </div>
