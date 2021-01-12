@@ -66,7 +66,7 @@ const ShoppingCardSidebar = () => {
 
   return (
     <div
-      // onClick={onClose}
+      onClick={toggleDrawer}
       style={{
         position: "fixed",
         top: 0,
@@ -100,7 +100,7 @@ const ShoppingCardSidebar = () => {
           Cart
         </button>
         <div
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => e.stopPropagation()}
           style={{
             overflow: "hidden",
             width: visible ? 300 : 0,

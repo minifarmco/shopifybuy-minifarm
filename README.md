@@ -6,7 +6,7 @@ It is powered by the [Shopify BuyJS SDK](https://github.com/Shopify/js-buy-sdk).
 ## How to Deploy
 1. Make sure `"noEmit": false` in `tsconfig.json`
 2. Run `$ yarn webpack`
-3. Upload the output files `dist/*` to Firebase Storage and set to public
+3. Upload the output files `dist/*` to [Firebase Storage folder](https://console.firebase.google.com/u/2/project/mini-farm-storefront/storage/mini-farm-storefront.appspot.com/files~2FMinifarm-ShopifyBuyJS) and set to public
 4. Import the script into webflow. Below is a generalized HTML example. See demo.html for a real example.
 
 ```html
@@ -35,8 +35,6 @@ It is powered by the [Shopify BuyJS SDK](https://github.com/Shopify/js-buy-sdk).
 ### Higher Priority ToDos
 
 - Pretty up the styling
-
-- Make the cart sidebar collapse on clicking gray outer area
 
 - A convinent helper function to get all the product IDs
 
