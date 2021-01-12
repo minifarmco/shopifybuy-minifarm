@@ -16,9 +16,13 @@ export const FIREBASE_CONFIG = {
 };
 
 export type ProductType = {
+  id: string;
+  title: string;
   variants: Array<any>;
 };
 export const emptyProduct: ProductType = {
+  id: "",
+  title: "",
   variants: [],
 };
 

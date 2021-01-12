@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ShoppingCardSidebar from "./components/shopping-cart";
-import SmallBuyButton from "./pages/buy-button/small";
+import SmallBuyButton from "./components/product-cards/small";
 import { initiateShopifyCart } from "./api/shopify-cart";
 import { initFirebase } from "./api/firebase";
 

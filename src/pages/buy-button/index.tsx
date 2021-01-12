@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TinyBuyButton from "./tiny";
-import SmallBuyButton from "./small";
-import MediumBuyButton from "./medium";
-import LargeBuyButton from "./large";
+import TinyBuyButton from "../../components/product-cards/tiny";
+import SmallBuyButton from "../../components/product-cards/small";
+import MediumBuyButton from "../../components/product-cards/medium";
+import LargeBuyButton from "../../components/product-cards/large";
 
 type BuyButtonSizes = "tiny" | "small" | "medium" | "large";
 
