@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, Menu, Button } from "antd";
+import { Dropdown, Menu, Button, Input } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { emptyProduct } from "../../../api/constants";
 import { getCartContents } from "../../../api/shopify-cart";
@@ -7,7 +7,7 @@ import { getCartContents } from "../../../api/shopify-cart";
 const App = ({ productId }: { productId: string }) => {
   const [product, setProduct] = useState(emptyProduct);
   const [chosenVariant, setChosenVariant] = useState() as any;
-
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     const initProduct = async () => {
       const product = await window.shopifyClient.product
@@ -38,10 +38,11 @@ const App = ({ productId }: { productId: string }) => {
 
   const addToCart = (variant: any) => async () => {
     window.toggleCartVisibility(true);
+    console.log(quantity);
     const lineItemsToAdd = [
       {
         variantId: variant.id,
-        quantity: 1,
+        quantity: Number(quantity),
       },
     ];
     await window.shopifyClient.checkout.addLineItems(
@@ -52,6 +53,13 @@ const App = ({ productId }: { productId: string }) => {
     console.log("cartItems:");
     console.log(cartItems);
     window.updateCartItems(cartItems);
+    setTimeout(() => {
+      setQuantity(1);
+    }, 1000);
+  };
+
+  const updateQuantity = (e: any) => {
+    setQuantity(e.target.value);
   };
 
   const handleMenuClick = (e: any) => {
@@ -84,42 +92,26 @@ const App = ({ productId }: { productId: string }) => {
           {chosenVariant ? <DownOutlined /> : null}
         </Button>
       </Dropdown>
-      <Button
-        onClick={addToCart(chosenVariant)}
-        style={{
-          width: "250px",
-          color: "white",
-          marginTop: "5px",
-          backgroundColor: "#4BB00D",
-        }}
-      >
-        Add to Cart
-      </Button>
+      <div style={{ display: "flex", flexDirection: "row", marginTop: "5px" }}>
+        <Input
+          value={quantity}
+          onChange={updateQuantity}
+          style={{ width: "50px", height: "40px", textAlign: "center" }}
+        />
+        <Button
+          onClick={addToCart(chosenVariant)}
+          style={{
+            width: "200px",
+            height: "40px",
+            color: "white",
+            backgroundColor: "#4BB00D",
+          }}
+        >
+          Add to Cart
+        </Button>
+      </div>
     </div>
   );
-
-  // return (
-  //   <div className="App">
-  //     {product.variants.map((v) => {
-  //       return (
-  //         <div key={v.id}>
-  //           <img
-  //             alt={v.title}
-  //             src={v.image.src}
-  //             style={{ height: "50px", width: "50px" }}
-  //           />
-  //           <p>{v.title}</p>
-  //           <button
-  //             onClick={addToCart(v)}
-  //             style={{ height: "50px", width: "100px" }}
-  //           >
-  //             Add to Cart
-  //           </button>
-  //         </div>
-  //       );
-  //     })}
-  //   </div>
-  // );
 };
 
 export default App;
