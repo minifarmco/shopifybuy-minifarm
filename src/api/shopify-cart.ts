@@ -98,3 +98,14 @@ export const redirectToCheckout = (checkoutId: string) => {
     win?.focus();
   });
 };
+
+export const getCartContents = async () => {
+  const checkoutId = Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE);
+  return window.shopifyClient.checkout
+    .fetch(checkoutId)
+    .then((checkout: any) => {
+      // Do something with the checkout
+      console.log(checkout);
+      return checkout.lineItems;
+    });
+};

@@ -37,3 +37,5 @@ window.checkoutId = window.checkoutId || "";
 window.addToFirestore = window.addToFirestore || {};
 window.getFromFirestore = window.getFromFirestore || {};
 window.firestore = window.firestore || {};
+
+export const typesWorkaround = "";

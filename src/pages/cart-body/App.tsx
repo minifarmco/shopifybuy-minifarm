@@ -1,20 +1,10 @@
 import React from "react";
-import { redirectToCheckout } from "../../api/shopify-cart";
-
-const checkoutStyle = {
-  minWidth: "200px",
-  minHeight: "80px",
-};
+import ShoppingCardSidebar from "../../components/shopping-cart";
 
 function App() {
-  const onCheckoutClick = () => {
-    redirectToCheckout(window.checkoutId);
-  };
   return (
     <div className="App">
-      <button onClick={onCheckoutClick} style={checkoutStyle}>
-        Checkout
-      </button>
+      <ShoppingCardSidebar />
     </div>
   );
 }

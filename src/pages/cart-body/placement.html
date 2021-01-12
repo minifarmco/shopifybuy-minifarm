@@ -1,6 +1,16 @@
 
 <div id="shopping-cart"></div>
-<script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-body.js?alt=media&token=81e4c9a1-ce50-4c38-beb5-3b876632ee41"></script>
+<script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-body.js?alt=media&token=f03a0967-e58b-48fb-88ed-259b8d12c354"></script>
 <script>
-    window.MiniFarmCartBody.default()
+    const clearBodyChecker = (ck) => {
+        console.log("Found window.shopifyClient! clearInterval()");
+        clearInterval(ck);
+        window.MiniFarmCartBody.default()
+    };
+    const bodyChecker = setInterval(() => {
+        console.log("Checking for window.shopifyClient...");
+        if (window.shopifyClient) {
+            clearBodyChecker(checker);
+        }
+    }, 100);
 </script>
