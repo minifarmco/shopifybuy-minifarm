@@ -19,11 +19,15 @@ export type ProductType = {
   id: string;
   title: string;
   variants: Array<any>;
+  images: Array<any>;
+  descriptionHtml: string;
 };
 export const emptyProduct: ProductType = {
   id: "",
   title: "",
   variants: [],
+  images: [],
+  descriptionHtml: "",
 };
 
 declare global {
