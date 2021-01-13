@@ -1,6 +1,7 @@
 import React from "react";
 import { Dropdown, Menu, Button, Input } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { COLORS } from "../../api/constants";
 import { getCartContents } from "../../api/shopify-cart";
 
 const VariantPicker = ({
@@ -19,8 +20,6 @@ const VariantPicker = ({
   showPrice?: Boolean;
 }) => {
   const handleMenuClick = (e: any) => {
-    console.log("Menu chose:");
-    console.log(product.variants[e.key]);
     setChosenVariant(product.variants[e.key]);
   };
 
@@ -30,7 +29,6 @@ const VariantPicker = ({
 
   const addToCart = (variant: any) => async () => {
     window.toggleCartVisibility(true);
-    console.log(quantity);
     const lineItemsToAdd = [
       {
         variantId: variant.id,
@@ -42,8 +40,6 @@ const VariantPicker = ({
       lineItemsToAdd
     );
     const cartItems = await getCartContents();
-    console.log("cartItems:");
-    console.log(cartItems);
     window.updateCartItems(cartItems);
     setTimeout(() => {
       setQuantity(1);
@@ -123,7 +119,7 @@ const VariantPicker = ({
             flex: 1,
             height: "40px",
             color: "white",
-            backgroundColor: "#4BB00D",
+            backgroundColor: COLORS.green,
             fontWeight: "bold",
             borderRadius: "0px 5px 5px 0px",
           }}

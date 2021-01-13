@@ -23,17 +23,15 @@ function App() {
     <div>
       <h1>Mini-Farm Shopify Buy Button Development Sandbox</h1>
       <ShoppingCardSidebar />
-      <button onClick={() => console.log("click me")}>click me</button>
 
       <div
         style={{
           height: "200vh",
           width: "100vw",
-          backgroundColor: "rgba(123,123,123,0.1)",
           padding: "50px",
         }}
       >
-        <div style={{ width: "300px", border: "0px solid blue" }}>
+        {/* <div style={{ width: "300px", border: "0px solid blue" }}>
           <SmallBuyButton
             productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIyMjc0NDE3MDg="}
           />
@@ -47,7 +45,7 @@ function App() {
           <LargeBuyButton
             productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzUyMzM1MDEwMTIwMTI="}
           />
-        </div>
+        </div> */}
         <div
           style={{
             width: "100%",

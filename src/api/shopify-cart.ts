@@ -12,7 +12,6 @@ const initNewCheckout = async () => {
   const checkoutId = await window.shopifyClient.checkout
     .create()
     .then((checkout: any) => {
-      console.log(checkout);
       return checkout.id;
     });
   console.log("checkoutId:");

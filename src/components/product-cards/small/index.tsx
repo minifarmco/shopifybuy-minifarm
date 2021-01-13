@@ -12,9 +12,6 @@ const SmallBuyButton = ({ productId }: { productId: string }) => {
       const product = await window.shopifyClient.product
         .fetch(productId)
         .then((product: any) => {
-          // Do something with the product
-          console.log("Product:");
-          console.log(product);
           return product;
         });
       setProduct(product);
@@ -28,8 +25,6 @@ const SmallBuyButton = ({ productId }: { productId: string }) => {
         return lowestCostVariant;
       };
       const cheapestVariant = findCheapestVariant(product.variants);
-      console.log("cheapestVariant: ");
-      console.log(cheapestVariant);
       setChosenVariant(cheapestVariant);
     };
     initProduct();

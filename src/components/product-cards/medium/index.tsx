@@ -13,9 +13,6 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
       const product = await window.shopifyClient.product
         .fetch(productId)
         .then((product: any) => {
-          // Do something with the product
-          console.log("Product:");
-          console.log(product);
           return product;
         });
       setProduct(product);
@@ -29,14 +26,10 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
         return lowestCostVariant;
       };
       const cheapestVariant = findCheapestVariant(product.variants);
-      console.log("cheapestVariant: ");
-      console.log(cheapestVariant);
       setChosenVariant(cheapestVariant);
     };
     initProduct();
   }, [productId]);
-
-  console.log(product);
 
   return (
     <div style={{ width: "100%", maxWidth: "300px", backgroundColor: "white" }}>

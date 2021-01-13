@@ -51,3 +51,7 @@ window.updateCartItems = window.updateCartItems || [];
 window.toggleCartVisibility = window.toggleCartVisibility || [];
 
 export const typesWorkaround = "";
+
+export const COLORS = {
+  green: "#4BB00D",
+};

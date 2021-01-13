@@ -12,9 +12,6 @@ const LargeBuyButton = ({ productId }: { productId: string }) => {
 
   const [ref, dimensions] = useDimensions();
 
-  console.log("dimensions:");
-  console.log(dimensions);
-
   const isExtraLarge = () => {
     return dimensions.width > 500;
   };
@@ -24,9 +21,6 @@ const LargeBuyButton = ({ productId }: { productId: string }) => {
       const product = await window.shopifyClient.product
         .fetch(productId)
         .then((product: any) => {
-          // Do something with the product
-          console.log("Product:");
-          console.log(product);
           return product;
         });
       setProduct(product);
@@ -40,14 +34,10 @@ const LargeBuyButton = ({ productId }: { productId: string }) => {
         return lowestCostVariant;
       };
       const cheapestVariant = findCheapestVariant(product.variants);
-      console.log("cheapestVariant: ");
-      console.log(cheapestVariant);
       setChosenVariant(cheapestVariant);
     };
     initProduct();
   }, [productId]);
-
-  console.log(product);
 
   const renderTitleAndVariantPicker = () => {
     return (
