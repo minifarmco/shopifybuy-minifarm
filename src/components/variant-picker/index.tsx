@@ -1,6 +1,4 @@
 import React from "react";
-import { Dropdown, Menu, Button, Input } from "antd";
-import { DownOutlined } from "@ant-design/icons";
 import { COLORS } from "../../api/constants";
 import { getCartContents } from "../../api/shopify-cart";
 
@@ -20,7 +18,8 @@ const VariantPicker = ({
   showPrice?: Boolean;
 }) => {
   const handleMenuClick = (e: any) => {
-    setChosenVariant(product.variants[e.key]);
+    const variant = product.variants.find((v: any) => v.id === e.target.value);
+    setChosenVariant(variant);
   };
 
   const updateQuantity = (e: any) => {
@@ -46,54 +45,25 @@ const VariantPicker = ({
     }, 1000);
   };
 
-  const menu = (
-    <Menu
-      onClick={handleMenuClick}
-      style={{ width: "100%", overflow: "hidden" }}
-    >
-      {product.variants.length === 1 ? (
-        <Menu.Item
-          key={0}
-          style={{ overflow: "hidden", width: "100%", textAlign: "left" }}
-        >
-          {product.title}
-        </Menu.Item>
-      ) : (
-        product.variants.map((v: any, i: number) => (
-          <Menu.Item key={i}>{v.title}</Menu.Item>
-        ))
-      )}
-    </Menu>
-  );
-
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <Dropdown overlay={menu}>
-        <Button
-          style={{
-            width: "100%",
-            overflow: "hidden",
-            textAlign: "left",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          {`${
-            chosenVariant
-              ? product.variants.length === 1
-                ? `${product["title"]}${
-                    showPrice ? ` $${chosenVariant["price"]}` : ""
-                  }`
-                : `${chosenVariant["title"]}${
-                    showPrice ? ` $${chosenVariant["price"]}` : ""
-                  }`
-              : product["title"]
-          }`}{" "}
-          {chosenVariant ? <DownOutlined /> : null}
-        </Button>
-      </Dropdown>
+      <select
+        id="select-variant"
+        value={chosenVariant ? chosenVariant.id : ""}
+        onChange={handleMenuClick}
+        style={{
+          height: "40px",
+          fontSize: "1em",
+          padding: "10px",
+          borderRadius: "5px",
+        }}
+      >
+        {product.variants.map((v: any, i: number) => (
+          <option key={i} value={v.id}>
+            {v.title}
+          </option>
+        ))}
+      </select>
       <div
         style={{
           display: "flex",
@@ -102,30 +72,36 @@ const VariantPicker = ({
           alignItems: "stretch",
         }}
       >
-        <Input
+        <input
           value={quantity}
           onChange={updateQuantity}
           style={{
             width: "50px",
             height: "40px",
+            maxHeight: "40px",
+            minHeight: "40px",
             textAlign: "center",
             borderRadius: "5px 0px 0px 5px",
             marginRight: "-5px",
+            border: `2px solid ${COLORS.green}`,
           }}
         />
-        <Button
+        <button
           onClick={addToCart(chosenVariant)}
           style={{
             flex: 1,
-            height: "40px",
+            minHeight: "40px",
             color: "white",
             backgroundColor: COLORS.green,
             fontWeight: "bold",
+            fontSize: "1em",
             borderRadius: "0px 5px 5px 0px",
+            border: `2px solid ${COLORS.green}`,
+            cursor: "pointer",
           }}
         >
           Add to Cart
-        </Button>
+        </button>
       </div>
     </div>
   );

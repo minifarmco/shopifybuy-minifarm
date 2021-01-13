@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Image, Carousel } from "antd";
+// import Carousel from "antd/lib/carousel";
+// import Image from "antd/lib/image";
 import { emptyProduct } from "../../../api/constants";
 import VariantPicker from "../../variant-picker";
 
@@ -33,7 +34,7 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
 
   return (
     <div style={{ width: "100%", maxWidth: "300px", backgroundColor: "white" }}>
-      <Carousel
+      {/* <Carousel
         effect="scrollx"
         dots
         style={{
@@ -50,9 +51,21 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
             style={{ borderRadius: "25px", overflow: "hidden" }}
           />
         ))}
-      </Carousel>
+      </Carousel> */}
+      <img
+        width="100%"
+        alt={product.images[0].altText}
+        src={product.images[0].src}
+        style={{ borderRadius: "25px", overflow: "hidden" }}
+      />
       <div style={{ height: "10px", width: "100%" }}></div>
-      <span style={{ fontSize: "1.6em", fontWeight: 800 }}>
+      <span
+        style={{
+          fontSize: "1.6em",
+          fontWeight: 800,
+          fontFamily: `"Fira sans", Open sans`,
+        }}
+      >
         {product.title}
       </span>
       {chosenVariant ? (

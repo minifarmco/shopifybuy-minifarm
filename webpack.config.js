@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 
 const baseConfig = {
     output: {
@@ -27,7 +28,12 @@ const baseConfig = {
     },
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
+        alias: {moment: `moment/moment.js`}
     },
+    plugins: [
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/)
+    ],
+    target: 'web'
 };
 
 module.exports = [
