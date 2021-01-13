@@ -33,7 +33,7 @@ function App() {
           padding: "50px",
         }}
       >
-        {/* <div style={{ width: "300px", border: "0px solid blue" }}>
+        <div style={{ width: "300px", border: "0px solid blue" }}>
           <SmallBuyButton
             productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzU0MDIyMjc0NDE3MDg="}
           />
@@ -47,7 +47,7 @@ function App() {
           <LargeBuyButton
             productId={"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzUyMzM1MDEwMTIwMTI="}
           />
-        </div> */}
+        </div>
         <div
           style={{
             width: "100%",

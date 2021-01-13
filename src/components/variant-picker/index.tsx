@@ -59,7 +59,15 @@ const VariantPicker = ({
         }}
       >
         {product.variants.map((v: any, i: number) => (
-          <option key={i} value={v.id}>
+          <option
+            key={i}
+            value={v.id}
+            style={{
+              height: "40px",
+              fontSize: "1em",
+              padding: "10px",
+            }}
+          >
             {v.title}
           </option>
         ))}

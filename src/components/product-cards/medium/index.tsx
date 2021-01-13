@@ -32,6 +32,9 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
     initProduct();
   }, [productId]);
 
+  const productImage =
+    product.images && product.images[0] ? product.images[0] : {};
+
   return (
     <div style={{ width: "100%", maxWidth: "300px", backgroundColor: "white" }}>
       {/* <Carousel
@@ -54,8 +57,8 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
       </Carousel> */}
       <img
         width="100%"
-        alt={product.images[0].altText}
-        src={product.images[0].src}
+        alt={productImage.altText}
+        src={productImage.src}
         style={{ borderRadius: "25px", overflow: "hidden" }}
       />
       <div style={{ height: "10px", width: "100%" }}></div>
