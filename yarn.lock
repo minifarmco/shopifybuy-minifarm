@@ -7704,6 +7704,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+location-bar@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/location-bar/-/location-bar-3.0.1.tgz#10cbeca7f9b0f1a0a6d900906a5cc250b812bd35"
+  integrity sha1-EMvsp/mw8aCm2QCQalzCULgSvTU=
+
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
@@ -11689,6 +11694,13 @@ url-loader@4.1.1:
     loader-utils "^2.0.0"
     mime-types "^2.1.27"
     schema-utils "^3.0.0"
+
+url-parameters@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/url-parameters/-/url-parameters-1.6.1.tgz#2365138fde08670ff8c3777559f3931ebf997c03"
+  integrity sha512-5lXgxbNeEIvtwp1w5OqvutMCt1dC+V4OsTKU4QWhFkFsZZ0jwX4ZWvb9c6r2OSd5SpzbD/pJwHxgvLFCRDjOlQ==
+  dependencies:
+    location-bar "3.0.1"
 
 url-parse@^1.4.3:
   version "1.4.7"

@@ -2,6 +2,7 @@ import Client from "shopify-buy";
 import Cookies from "js-cookie";
 import {
   SHOPIFY_CHECKOUT_ID_COOKIE,
+  UTM_PARAMS_MEMORY,
   SHOPIFY_DOMAIN,
   SHOPIFY_TOKEN,
 } from "./constants";
@@ -74,19 +75,20 @@ export const initiateShopifyCart = async () => {
 export const redirectToCheckout = (checkoutId: string) => {
   window.shopifyClient.checkout.fetch(checkoutId).then((checkout: any) => {
     // save cookie utm_params + checkoutId to external database
-    const utm_source = Cookies.get("utm_source");
+    const currentUtmMemoryString: any = Cookies.get(UTM_PARAMS_MEMORY) || {};
+    const currentUtmMemory = JSON.parse(currentUtmMemoryString);
     console.log(
-      `Saving to external database the utm_source=${utm_source} and webUrl=${checkout.webUrl}`
+      `Saving to external database the utm memory for webUrl=${checkout.webUrl}`
     );
     const urlPersistentCheckoutId = extractCheckoutIdFromWebUrl(
       checkout.webUrl
     );
     let params: any = {};
     const timestamp = new Date().getTime();
-    if (utm_source) {
-      params[`${timestamp}_initCheckout_utm_source`] = utm_source;
-      params[`latest_utm_source`] = utm_source;
-    }
+    Object.keys(currentUtmMemory).forEach((k) => {
+      params[`${timestamp}_${k}`] = currentUtmMemory[k];
+      params[`latest_${k}`] = currentUtmMemory[k];
+    });
     console.log("utm_params to save to firebase:");
     console.log(params);
     window.addToFirestore({ id: urlPersistentCheckoutId, params });
@@ -111,8 +113,6 @@ export const getCartContents = async () => {
 
 export const fetchAllProducts = async () => {
   return window.shopifyClient.product.fetchAll().then((products: any) => {
-    console.log("products:");
-    console.log(products);
     return products;
   });
 };

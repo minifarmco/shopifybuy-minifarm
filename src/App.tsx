@@ -5,10 +5,12 @@ import MediumBuyButton from "./components/product-cards/medium";
 import LargeBuyButton from "./components/product-cards/large";
 import { initiateShopifyCart, fetchAllProducts } from "./api/shopify-cart";
 import { initFirebase } from "./api/firebase";
+import { saveUtmParams } from "./api/helpers";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
+    saveUtmParams();
     initiateShopifyCart();
     initFirebase();
     setTimeout(() => {

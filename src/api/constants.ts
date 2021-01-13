@@ -1,4 +1,5 @@
 export const SHOPIFY_CHECKOUT_ID_COOKIE = "shopifyCheckoutId_customCode";
+export const UTM_PARAMS_MEMORY = "customBuyButton_utmParamsMemory";
 
 export const SHOPIFY_DOMAIN = "mini-farm-usa.myshopify.com";
 export const SHOPIFY_TOKEN = "517f81f798b0f394623272bbaf48aa09";

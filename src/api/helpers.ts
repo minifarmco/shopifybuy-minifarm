@@ -1,13 +1,16 @@
 import Cookies from "js-cookie";
+import url from "url-parameters";
+import { UTM_PARAMS_MEMORY } from "./constants";
 
 export const saveUtmParams = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const utmSource = urlParams.get("utm_source") || "";
-  if (utmSource) {
-    console.log(`Found utm_source=${utmSource} and saving it to cookie...`);
-    Cookies.set("utm_source", utmSource);
-  }
+  const urlParams = url.getParams();
+  let latestUtmParamsMemory: any = {};
+  Object.keys(urlParams).forEach((p) => {
+    if (p.indexOf("utm") > -1) {
+      latestUtmParamsMemory[p] = urlParams[p];
+    }
+  });
+  Cookies.set(UTM_PARAMS_MEMORY, JSON.stringify(latestUtmParamsMemory));
 };
 
 export const extractCheckoutIdFromWebUrl = (webUrl: string) => {
