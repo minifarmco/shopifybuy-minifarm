@@ -74,6 +74,7 @@ export const initiateShopifyCart = async () => {
 
 export const redirectToCheckout = (checkoutId: string) => {
   window.shopifyClient.checkout.fetch(checkoutId).then((checkout: any) => {
+    const checkoutId = Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE);
     // save cookie utm_params + checkoutId to external database
     const currentUtmMemoryString: any = Cookies.get(UTM_PARAMS_MEMORY) || {};
     const currentUtmMemory = JSON.parse(currentUtmMemoryString);
@@ -88,6 +89,8 @@ export const redirectToCheckout = (checkoutId: string) => {
     Object.keys(currentUtmMemory).forEach((k) => {
       params[`${timestamp}_${k}`] = currentUtmMemory[k];
       params[`latest_${k}`] = currentUtmMemory[k];
+      params[`checkoutId`] = checkoutId;
+      params[`checkoutUrlId`] = urlPersistentCheckoutId;
     });
     console.log("utm_params to save to firebase:");
     console.log(params);
