@@ -138,7 +138,7 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
                 });
             console.log("existingCheckout:")
             console.log(existingCheckout)
-            params['cart_value'] = Number(existingCheckout.order.totalPrice)
+            params['purchased_value'] = Number(existingCheckout.order.totalPrice)
             // do something with existingCheckout
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push(params);

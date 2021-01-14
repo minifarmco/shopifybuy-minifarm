@@ -1,6 +1,7 @@
 import React from "react";
 import { COLORS } from "../../api/constants";
 import { getCartContents } from "../../api/shopify-cart";
+import { trackEvent } from "../../api/mixpanel";
 
 const VariantPicker = ({
   product,
@@ -34,6 +35,16 @@ const VariantPicker = ({
         quantity: Number(quantity),
       },
     ];
+    const data = {
+      addToCart_value: Number(variant.price),
+      addToCart_item_title: variant.title,
+      addToCart_item_shopify_sku: variant.sku,
+      addToCart_item_shopify_id: variant.id,
+    };
+    trackEvent({
+      eventName: "AddToCart",
+      data,
+    });
     await window.shopifyClient.checkout.addLineItems(
       window.checkoutId,
       lineItemsToAdd

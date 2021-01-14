@@ -7,6 +7,7 @@ import {
   SHOPIFY_TOKEN,
 } from "./constants";
 import { extractCheckoutIdFromWebUrl } from "./helpers";
+import { trackEvent } from "./mixpanel";
 
 const initNewCheckout = async () => {
   // Initiate the cart with a checkoutId
@@ -15,21 +16,12 @@ const initNewCheckout = async () => {
     .then((checkout: any) => {
       return checkout.id;
     });
-  console.log("checkoutId:");
-  console.log(checkoutId);
   window.checkoutId = checkoutId;
   Cookies.set(SHOPIFY_CHECKOUT_ID_COOKIE, checkoutId);
-  console.log("Initiated new checkout and saved to cookies!");
 };
 
 export const initiateShopifyCart = async () => {
-  console.log(
-    "Checking for existence of window.shopifyClient (Shopify Checkout API)"
-  );
-  console.log(window.shopifyClient);
-  console.log("window.shopifyClient");
   if (!window.shopifyClient) {
-    console.log("None found, initiating Shopify Checkout API");
     // Initializing the Shopify client
     const client = await Client.buildClient({
       domain: SHOPIFY_DOMAIN,
@@ -37,23 +29,16 @@ export const initiateShopifyCart = async () => {
     });
     window.shopifyClient = client;
     // look for existing checkout in cookies
-    console.log("Looking in cookies for existing checkout");
     const existingCheckoutId = Cookies.get(SHOPIFY_CHECKOUT_ID_COOKIE);
     if (existingCheckoutId) {
       // check if this checkout is already completed
-      console.log("Found existing checkout in cookies");
       const existingCheckout = await window.shopifyClient.checkout
         .fetch(existingCheckoutId)
         .then((checkout: any) => {
           // Do something with the checkout
-          console.log("Got the Shopify checkout object");
-          console.log(checkout);
           return checkout;
         });
       if (existingCheckout.orderStatusUrl) {
-        console.log(
-          "This existing checkout is already purchased complete. Now removing old checkout from cookies..."
-        );
         // Initiate the cart with a checkoutId
         initNewCheckout();
       } else {
@@ -97,6 +82,15 @@ export const redirectToCheckout = (checkoutId: string) => {
     window.addToFirestore({ id: urlPersistentCheckoutId, params });
     // Do something with the checkout
     console.log(checkout);
+
+    const data = {
+      initCheckout_value: Number(checkout.totalPrice),
+    };
+    trackEvent({
+      eventName: "InitiateCheckout",
+      data,
+    });
+
     const webUrl = checkout.webUrl;
     const win = window.open(webUrl, "_blank");
     win?.focus();

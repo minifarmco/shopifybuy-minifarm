@@ -5,6 +5,7 @@ import MediumBuyButton from "./components/product-cards/medium";
 import LargeBuyButton from "./components/product-cards/large";
 import { initiateShopifyCart, fetchAllProducts } from "./api/shopify-cart";
 import { initFirebase } from "./api/firebase";
+import { initMixpanel } from "./api/mixpanel";
 import { saveUtmParams } from "./api/helpers";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     saveUtmParams();
     initiateShopifyCart();
     initFirebase();
+    initMixpanel();
     setTimeout(() => {
       setLoaded(true);
     }, 1000);
