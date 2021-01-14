@@ -6,8 +6,9 @@ import {
   UTM_PARAMS_MEMORY,
 } from "./constants";
 
-export const initMixpanel = () => {
-  mixpanel.init(MIXPANEL_TOKEN);
+export const initMixpanel = async () => {
+  console.log("Inititializing mixpanel...");
+  mixpanel.init(MIXPANEL_TOKEN, { ignore_dnt: true });
 };
 
 export const trackEvent = async ({

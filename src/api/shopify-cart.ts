@@ -97,8 +97,29 @@ export const getCartContents = async () => {
     });
 };
 
+const fetchNextPage = async (
+  prevSet: Array<any>,
+  cumulativeSet: Array<any>
+): Promise<any> => {
+  const nextSet = await window.shopifyClient
+    .fetchNextPage(prevSet)
+    .then((data: any) => {
+      return data.model;
+    });
+  const updatedCumulativeSet = [...cumulativeSet, ...nextSet];
+  if (nextSet.length > 0) {
+    return fetchNextPage(nextSet, updatedCumulativeSet);
+  }
+  return updatedCumulativeSet;
+};
+
 export const fetchAllProducts = async () => {
-  return window.shopifyClient.product.fetchAll().then((products: any) => {
-    return products;
-  });
+  const allProducts = await window.shopifyClient.product
+    .fetchAll()
+    .then((products: any) => {
+      return fetchNextPage(products, products);
+    });
+  console.log("fetchAllProducts");
+  console.log(allProducts);
+  return allProducts;
 };

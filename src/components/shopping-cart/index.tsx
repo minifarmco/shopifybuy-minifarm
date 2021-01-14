@@ -91,7 +91,7 @@ const ShoppingCardSidebar = () => {
         minHeight: "100vh",
         width: visible ? "100vw" : 0,
         backgroundColor: visible ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0)",
-        zIndex: 98,
+        zIndex: 999,
       }}
     >
       <div
@@ -136,15 +136,15 @@ const ShoppingCardSidebar = () => {
             right: 0,
             top: 0,
             position: "absolute",
-            zIndex: 99,
+            zIndex: 9999,
             boxShadow: "-5px 0px 5px #888888",
             padding: "10px 20px 20px 20px",
           }}
         >
           <div
             style={{
-              height: windowSize.height - 250,
-              maxHeight: windowSize.height - 250,
+              height: windowSize.height - 300,
+              maxHeight: windowSize.height - 300,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -183,7 +183,7 @@ const ShoppingCardSidebar = () => {
               </div>
               <div
                 className="shopping-cart-list"
-                style={{ height: windowSize.height - 150, overflowY: "scroll" }}
+                style={{ height: windowSize.height - 200, overflowY: "scroll" }}
               >
                 {cartItems.map((p: any, i: number) => (
                   <CartRow
