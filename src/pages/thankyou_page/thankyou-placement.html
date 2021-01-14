@@ -53,7 +53,6 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
         .doc(id)
         .set(params)
         .then(function () {
-          console.log("Document written with ID: ", id);
           return id;
         })
         .catch(function (error) {
@@ -62,7 +61,6 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
         });
     };
     window.getFromFirestore = async (id) => {
-        console.log('Grabbing from Firestore... ', id)
       var docRef = window.firebase
         .firestore()
         .collection("cartSessions")
@@ -74,16 +72,12 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
         .get()
         .then(function (doc) {
           if (doc.exists) {
-            console.log("Document data:", doc.data());
             return doc.data();
           } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
             return null;
           }
         })
         .catch(function (error) {
-          console.log("Error getting document:", error);
           return null;
         });
     };
@@ -96,21 +90,14 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
       return checkoutId;
     };
     const logPurchaseEvent = async () => {
-      console.log("Extracting checkoutId from thank you page....");
       const checkoutId = window.extractCheckoutIdFromThankYouPage(
         document.location.href
       );
-      console.log("Got checkoutId: ", checkoutId);
-      console.log("Querying Firestore...");
-
-      
-
+    
       const data = await window.getFromFirestore(checkoutId);
       if (!data) {
           return
       }
-      console.log("FOUND ASSOCIATED UTM DATA FOR THIS CHECKOUT ID!");
-      console.log(data);
 
         const trackEvent = async (eventName, data) => {
             let params = {}
@@ -126,18 +113,12 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
             params['event'] = eventName
             params['eventAction'] = eventName
             params['eventLabel'] = data['checkoutId'] || 'missing'
-            console.log('Saving to ga datalayer...')
-            console.log(params)
             const existingCheckout = await window.shopifyClient.checkout
                 .fetch(existingCheckoutId)
                 .then((checkout) => {
                 // Do something with the checkout
-                console.log("Got the Shopify checkout object");
-                console.log(checkout);
                 return checkout;
                 });
-            console.log("existingCheckout:")
-            console.log(existingCheckout)
             params['purchased_value'] = Number(existingCheckout.order.totalPrice)
             // do something with existingCheckout
             window.dataLayer = window.dataLayer || [];
@@ -149,14 +130,8 @@ mixpanel.init("ebc25be969ed7210cc25900815b1a2c1", {batch_requests: true})</scrip
     };
     setTimeout(() => {
       if (document.location.href.indexOf("/orders/") === -1) {
-        console.log(
-          "This is the /thank_you page. Will log a successfull purchase event"
-        );
         logPurchaseEvent();
       } else {
-        console.log(
-          "This is the /orders/ receipt page. Will not log a duplicate purchase event"
-        );
       }
     }, 500);
   }, 1000);

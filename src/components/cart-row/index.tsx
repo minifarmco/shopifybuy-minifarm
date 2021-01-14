@@ -7,7 +7,6 @@ const CartRow = ({
   cartItem: any;
   updateVariantCount: Function;
 }) => {
-  console.log(cartItem);
   return (
     <div
       key={cartItem["id"]}

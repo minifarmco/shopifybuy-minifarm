@@ -5,12 +5,10 @@
 <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-shopifybuy-button.js?alt=media&token=a475164d-5ef9-44b6-b1c5-9a17b8587ec2"></script>
 <script>
     const clearHeaderChecker = (ck) => {
-        console.log("Found window.MiniFarmCartHeader! clearInterval()");
         clearInterval(ck);
         window.MiniFarmCartHeader.default()
     };
     const headerChecker = setInterval(() => {
-        console.log("Checking for window.MiniFarmCartHeader...");
         if (window.MiniFarmCartHeader) {
             clearHeaderChecker(headerChecker);
         }

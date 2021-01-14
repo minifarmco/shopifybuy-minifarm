@@ -3,12 +3,10 @@
 <script src="https://firebasestorage.googleapis.com/v0/b/mini-farm-storefront.appspot.com/o/Minifarm-ShopifyBuyJS%2Fminifarm-cart-body.js?alt=media&token=564bac8b-dc36-4719-8142-497e13153155"></script>
 <script>
     const clearBodyChecker = (ck) => {
-        console.log("Found window.shopifyClient! clearInterval()");
         clearInterval(ck);
         window.MiniFarmCartBody.default()
     };
     const bodyChecker = setInterval(() => {
-        console.log("Checking for window.shopifyClient...");
         if (window.shopifyClient) {
             clearBodyChecker(bodyChecker);
         }

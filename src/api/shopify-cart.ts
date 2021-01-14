@@ -42,18 +42,14 @@ export const initiateShopifyCart = async () => {
         // Initiate the cart with a checkoutId
         initNewCheckout();
       } else {
-        console.log("There is an existing incomplete checkout. lets use that");
         window.checkoutId = existingCheckoutId;
       }
     } else {
-      console.log(
-        "No existing checkout found in cookies. Initiating a new one!"
-      );
       // Initiate the cart with a checkoutId
       initNewCheckout();
     }
   } else {
-    console.log("window.shopifyClient was found");
+    console.error("window.shopifyClient was found");
   }
 };
 
@@ -63,9 +59,7 @@ export const redirectToCheckout = (checkoutId: string) => {
     // save cookie utm_params + checkoutId to external database
     const currentUtmMemoryString: any = Cookies.get(UTM_PARAMS_MEMORY) || {};
     const currentUtmMemory = JSON.parse(currentUtmMemoryString);
-    console.log(
-      `Saving to external database the utm memory for webUrl=${checkout.webUrl}`
-    );
+
     const urlPersistentCheckoutId = extractCheckoutIdFromWebUrl(
       checkout.webUrl
     );
@@ -77,11 +71,7 @@ export const redirectToCheckout = (checkoutId: string) => {
       params[`checkoutId`] = checkoutId;
       params[`checkoutUrlId`] = urlPersistentCheckoutId;
     });
-    console.log("utm_params to save to firebase:");
-    console.log(params);
     window.addToFirestore({ id: urlPersistentCheckoutId, params });
-    // Do something with the checkout
-    console.log(checkout);
 
     const data = {
       initCheckout_value: Number(checkout.totalPrice),
@@ -103,7 +93,6 @@ export const getCartContents = async () => {
     .fetch(checkoutId)
     .then((checkout: any) => {
       // Do something with the checkout
-      console.log(checkout);
       return checkout.lineItems;
     });
 };
