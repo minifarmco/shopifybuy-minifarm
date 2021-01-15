@@ -16,6 +16,9 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
         .then((product: any) => {
           return product;
         });
+
+      console.log("Variant: ");
+      console.log(product);
       setProduct(product);
       const findCheapestVariant = (arr: Array<any>) => {
         let lowestCostVariant = arr[0];
@@ -37,24 +40,6 @@ const MediumBuyButton = ({ productId }: { productId: string }) => {
 
   return (
     <div style={{ width: "100%", maxWidth: "300px", backgroundColor: "white" }}>
-      {/* <Carousel
-        effect="scrollx"
-        dots
-        style={{
-          borderRadius: "25px",
-          overflow: "hidden",
-        }}
-      >
-        {product.images.map((img: any) => (
-          <Image
-            preview={false}
-            width="100%"
-            alt={img.altText}
-            src={img.src}
-            style={{ borderRadius: "25px", overflow: "hidden" }}
-          />
-        ))}
-      </Carousel> */}
       <img
         width="100%"
         alt={productImage.altText}

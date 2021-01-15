@@ -143,8 +143,8 @@ const ShoppingCardSidebar = () => {
         >
           <div
             style={{
-              height: windowSize.height - 300,
-              maxHeight: windowSize.height - 300,
+              height: windowSize.height - 270,
+              maxHeight: windowSize.height - 270,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -183,7 +183,7 @@ const ShoppingCardSidebar = () => {
               </div>
               <div
                 className="shopping-cart-list"
-                style={{ height: windowSize.height - 200, overflowY: "scroll" }}
+                style={{ height: windowSize.height - 180, overflowY: "scroll" }}
               >
                 {cartItems.map((p: any, i: number) => (
                   <CartRow
@@ -226,7 +226,6 @@ const ShoppingCardSidebar = () => {
                   color: "gray",
                   width: "100%",
                   alignSelf: "center",
-                  marginBottom: 10,
                 }}
               >{`Shipping and discount codes are added at checkout.`}</span>
               <button
@@ -238,6 +237,7 @@ const ShoppingCardSidebar = () => {
                   color: "white",
                   border: "0px solid white",
                   borderRadius: "5px",
+                  marginTop: "10px",
                 }}
               >
                 Checkout

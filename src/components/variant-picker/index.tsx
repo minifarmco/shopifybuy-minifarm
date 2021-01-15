@@ -57,7 +57,7 @@ const VariantPicker = ({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <select
         id="select-variant"
         value={chosenVariant ? chosenVariant.id : ""}
@@ -79,7 +79,7 @@ const VariantPicker = ({
               padding: "10px",
             }}
           >
-            {v.title}
+            {v.title === "Default Title" ? product.title : v.title}
           </option>
         ))}
       </select>
