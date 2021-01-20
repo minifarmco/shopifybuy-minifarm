@@ -38,6 +38,7 @@ const SmallBuyButton = ({ productId }: { productId: string }) => {
         quantity={quantity}
         setQuantity={setQuantity}
         setChosenVariant={setChosenVariant}
+        showQuantityInput={false}
       />
     </div>
   );

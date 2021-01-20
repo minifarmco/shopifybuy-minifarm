@@ -1,4 +1,4 @@
-import * as mixpanel from "mixpanel-browser";
+// import * as mixpanel from "mixpanel-browser";
 import Cookies from "js-cookie";
 import {
   MIXPANEL_TOKEN,
@@ -8,7 +8,7 @@ import {
 
 export const initMixpanel = async () => {
   console.log("Inititializing mixpanel...");
-  mixpanel.init(MIXPANEL_TOKEN, { ignore_dnt: true });
+  window.mixpanel.init(MIXPANEL_TOKEN, { ignore_dnt: true });
 };
 
 export const trackEvent = async ({
@@ -30,5 +30,5 @@ export const trackEvent = async ({
   params["event"] = eventName;
   params["eventAction"] = eventName;
   // do something with existingCheckout
-  mixpanel.track(eventName, params);
+  window.mixpanel.track(eventName, params);
 };

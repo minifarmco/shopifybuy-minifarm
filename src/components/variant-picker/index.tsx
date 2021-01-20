@@ -10,6 +10,7 @@ const VariantPicker = ({
   setQuantity,
   setChosenVariant,
   showPrice,
+  showQuantityInput,
 }: {
   product: any;
   chosenVariant: any;
@@ -17,6 +18,7 @@ const VariantPicker = ({
   setQuantity: Function;
   setChosenVariant: Function;
   showPrice?: Boolean;
+  showQuantityInput?: Boolean;
 }) => {
   const handleMenuClick = (e: any) => {
     const variant = product.variants.find((v: any) => v.id === e.target.value);
@@ -64,9 +66,11 @@ const VariantPicker = ({
         onChange={handleMenuClick}
         style={{
           height: "40px",
-          fontSize: "1em",
+          fontSize: "0.9em",
           padding: "10px",
           borderRadius: "5px",
+          width: "100%",
+          textOverflow: "ellipsis",
         }}
       >
         {product.variants.map((v: any, i: number) => (
@@ -77,6 +81,7 @@ const VariantPicker = ({
               height: "40px",
               fontSize: "1em",
               padding: "10px",
+              width: "100%",
             }}
           >
             {v.title === "Default Title" ? product.title : v.title}
@@ -91,20 +96,23 @@ const VariantPicker = ({
           alignItems: "stretch",
         }}
       >
-        <input
-          value={quantity}
-          onChange={updateQuantity}
-          style={{
-            width: "50px",
-            height: "40px",
-            maxHeight: "40px",
-            minHeight: "40px",
-            textAlign: "center",
-            borderRadius: "5px 0px 0px 5px",
-            marginRight: "-5px",
-            border: `2px solid ${COLORS.green}`,
-          }}
-        />
+        {showQuantityInput ? (
+          <input
+            value={quantity}
+            onChange={updateQuantity}
+            style={{
+              width: "50px",
+              height: "40px",
+              maxHeight: "40px",
+              minHeight: "40px",
+              textAlign: "center",
+              borderRadius: "5px 0px 0px 5px",
+              marginRight: "-5px",
+              border: `2px solid ${COLORS.green}`,
+            }}
+          />
+        ) : null}
+
         <button
           onClick={addToCart(chosenVariant)}
           style={{

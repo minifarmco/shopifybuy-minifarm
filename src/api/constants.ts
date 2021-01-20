@@ -42,6 +42,7 @@ declare global {
     firestore: any;
     updateCartItems: Function;
     toggleCartVisibility: Function;
+    mixpanel: any;
   }
 }
 
@@ -52,6 +53,7 @@ window.getFromFirestore = window.getFromFirestore || {};
 window.firestore = window.firestore || {};
 window.updateCartItems = window.updateCartItems || [];
 window.toggleCartVisibility = window.toggleCartVisibility || [];
+window.mixpanel = window.mixpanel || {};
 
 export const typesWorkaround = "";
 
