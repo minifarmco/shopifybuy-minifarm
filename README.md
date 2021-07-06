@@ -3,6 +3,9 @@
 This repo is a custom Shopify Buy Button made for www.mini-farm.co
 It is powered by the [Shopify BuyJS SDK](https://github.com/Shopify/js-buy-sdk).
 
+![buy-button-cart](https://user-images.githubusercontent.com/72045091/124527117-54ab1d80-de37-11eb-8aa2-4104c5cea3d7.png)
+
+
 ## How to Deploy
 1. Make sure `"noEmit": false` in `tsconfig.json`
 2. Run `$ yarn webpack`
